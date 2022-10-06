@@ -1,11 +1,9 @@
-import React, { useState } from "react";
-import classNames from "classnames";
+import React from "react";
 import InterviewerListItem from "./InterviewerListItem";
 import "components/InterviewerList.scss";
 
 // props : interviewers(arr), setInterviewers(fnc), interviewer(num/id)
 export default function InterviewerList(props) {
-  console.log("props:", props);
   const interviewers = props.interviewers.map((interviewer) => {
     return (
       <InterviewerListItem
