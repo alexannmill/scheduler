@@ -1,11 +1,11 @@
-import React, { Fragment } from "react";
-
+import React from "react";
 import Show from "./Show";
 import Empty from "./Empty";
 import Header from "./Header";
 
 import "components/Appointment/styles.scss";
 
+//props: id(num), time(string), interview(obj)
 export default function Appointment(props) {
   console.log("propsA:", props);
   return (
