@@ -2,9 +2,10 @@ import React from "react";
 import InterviewerListItem from "./InterviewerListItem";
 import "components/InterviewerList.scss";
 
-// props : interviewers(arr), setInterviewers(fnc), interviewer(num/id)
+// props : interviewers(arr), onChange -setInterviewers(fnc), interviewer(num/id)
 export default function InterviewerList(props) {
-  const interviewers = props.interviewers.map((interviewer) => {
+  console.log("props:", props);
+  const interviewers = Object.values(props.interviewers).map((interviewer) => {
     return (
       <InterviewerListItem
         key={interviewer.id}
