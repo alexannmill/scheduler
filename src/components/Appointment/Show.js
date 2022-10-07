@@ -1,9 +1,8 @@
 import React from "react";
 import "components/Appointment/styles.scss";
 
-//props: student(string), interviewer(object), onEdit(func), onDelete(func)
+//props: student(string), interview(object), onEdit(func), onDelete(func)
 export default function Show(props) {
-  console.log("propsS:", props);
   return (
     <main className="appointment__card appointment__card--show">
       <section className="appointment__card-left">

@@ -7,7 +7,6 @@ import "components/Appointment/styles.scss";
 
 //props: id(num), time(string), interview(obj)
 export default function Appointment(props) {
-  console.log("propsA:", props);
   return (
     <div className="appointment">
       <Header time={props.time} />
