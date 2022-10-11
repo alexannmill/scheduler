@@ -23,12 +23,14 @@ export function getInterview(state, interview) {
 }
 
 export function getInterviewersForDay(state, day) {
-  let filterDays = state.days.filter((eachDay) => eachDay.name === day)[0];
-  if (!filterDays) {
+  const filterDays = state.days.filter((eachDay) => eachDay.name === day);
+  if (filterDays.length < 1) {
     return [];
   }
-  const returnInterviewers = filterDays.interviewers.map(
-    (interviewerID) => state.interviewers[interviewerID]
-  );
-  return returnInterviewers;
+  const dayInterviewers = filterDays[0].interviewers;
+  const arrInterviewers = [];
+  dayInterviewers.forEach((id) => {
+    arrInterviewers.push(state.interviewers[id]);
+  });
+  return arrInterviewers;
 }
