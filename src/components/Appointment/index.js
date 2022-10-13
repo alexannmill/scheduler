@@ -66,7 +66,7 @@ export default function Appointment(props) {
       });
   };
   // edit on SHOW
-  const edit = (name, interview) => {
+  const edit = () => {
     transition(EDIT);
   };
 
