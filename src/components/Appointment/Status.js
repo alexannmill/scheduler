@@ -1,6 +1,7 @@
 import React from "react";
 import "components/Appointment/styles.scss";
 
+// props: message(string)
 export default function Status(props) {
   return (
     <main className="appointment__card appointment__card--status">
