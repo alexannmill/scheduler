@@ -63,11 +63,11 @@ export function useApplicationData() {
 
 //cancel interview
 */
-  const cancelInterview = (id) => {
+  const cancelInterview = (id, interview) => {
     //new appointment with null as interview
     const appointment = {
       ...state.appointments[id],
-      interview: null,
+      interview: { ...interview },
     };
 
     // placing appointment into appointments object
