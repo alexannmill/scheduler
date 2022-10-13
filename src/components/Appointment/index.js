@@ -13,6 +13,7 @@ import "components/Appointment/styles.scss";
 
 //props: id(num), time(string), interview(obj)
 export default function Appointment(props) {
+  //setting mode
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";

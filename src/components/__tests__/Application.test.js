@@ -12,10 +12,12 @@ import {
   debugDOM,
   waitForElementToBeRemoved,
   getByTestId,
+  waitFor,
+  queryByText,
 } from "@testing-library/react";
+import axios from "axios";
 
 import Application from "components/Application";
-import DayListItem from "components/DayListItem";
 
 afterEach(cleanup);
 
@@ -98,10 +100,30 @@ it("loads data, edits an interview and keeps the spots remaining for Monday the 
 
   const days = getAllByTestId(container, "day");
   const monday = days.find((day) => getByText(day, "Monday"));
-  console.log(prettyDOM(monday));
   expect(getByText(monday, /1 spot remaining/i));
 });
 
-// it("shows the save error when failing to save an appointment", () => {});
+it("shows the save error when failing to save an appointment", async () => {
+  axios.put.mockRejectedValueOnce(new Error("something happened"));
 
-// it("shows the delete error when failing to delete an existing appointment", () => {});
+  const { container } = render(<Application />);
+
+  await waitForElement(() => getByText(container, "Archie Cohen"));
+
+  const appointments = getAllByTestId(container, "appointment");
+  const appointment = appointments[0];
+
+  fireEvent.click(getByAltText(appointment, "Add"));
+
+  fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
+    target: { value: "Alex Miller" },
+  });
+  fireEvent.click(getByAltText(appointment, "Tori Malcolm"));
+  fireEvent.click(getByText(appointment, "Save"));
+
+  await waitForElement(() => {
+    return queryByText(appointment, /error while saving/i);
+  });
+});
+
+it("shows the delete error when failing to delete an existing appointment", async () => {});
