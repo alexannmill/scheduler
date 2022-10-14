@@ -59,15 +59,13 @@ export function useApplicationData() {
     //updating the db with new appointments
     return axios.put(`/appointments/${id}`, appointment);
   };
-  /*
 
-//cancel interview
-*/
+  //cancel interview
   const cancelInterview = (id, interview) => {
     //new appointment with null as interview
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview },
+      interview: null,
     };
 
     // placing appointment into appointments object
