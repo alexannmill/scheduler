@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+//helper hooks for application index.js
 export function useApplicationData() {
   //state obj
   const [state, setState] = useState({
@@ -49,40 +50,41 @@ export function useApplicationData() {
       [id]: appointment,
     };
 
-    //setting new state with new appointment
-    setState({
-      ...state,
-      appointments,
-      days: availableSpots(appointments, id),
-    });
-
     //updating the db with new appointments
-    return axios.put(`/appointments/${id}`, appointment);
+    return axios.put(`/appointments/${id}`, appointment).then(() => {
+      const newDays = availableSpots(appointments, id);
+      // setting state to new appointments object
+      setState({
+        ...state,
+        appointments,
+        days: newDays,
+      });
+    });
   };
 
   //cancel interview
-  const cancelInterview = (id, interview) => {
+  const cancelInterview = (id) => {
     //new appointment with null as interview
     const appointment = {
       ...state.appointments[id],
       interview: null,
     };
-
     // placing appointment into appointments object
     const appointments = {
       ...state.appointments,
       [id]: appointment,
     };
 
-    // setting state to new appointments object
-    setState({
-      ...state,
-      appointments,
-      days: availableSpots(appointments, id),
-    });
-
     //returning to db
-    return axios.delete(`/appointments/${id}`, appointment);
+    return axios.delete(`/appointments/${id}`, appointment).then(() => {
+      const newDays = availableSpots(appointments, id);
+      // setting state to new appointments object
+      setState({
+        ...state,
+        appointments,
+        days: newDays,
+      });
+    });
   };
 
   const availableSpots = (appointments, id) => {
@@ -101,16 +103,14 @@ export function useApplicationData() {
     let counter = 0;
     const dayAppointments = day.appointments;
     dayAppointments.forEach((app) => {
-      if (appointments[app].interview === null) {
+      if (!appointments[app].interview) {
         counter++;
       }
     });
-
     //replacing # of spots and inserting day into days array
     day.spots = counter;
     const days = [...state.days];
     days.splice(index, 1, day);
-
     return days;
   };
 

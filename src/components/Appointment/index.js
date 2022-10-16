@@ -42,7 +42,6 @@ export default function Appointment(props) {
       })
       .catch((error) => {
         transition(ERROR_SAVING, true);
-        console.log("error:", error);
       });
   };
 
@@ -54,15 +53,13 @@ export default function Appointment(props) {
   //onDelete for SHOW
   const deleteInterview = () => {
     transition(DELETING, true);
-    const interview = null;
     props
-      .cancelInterview(props.id, interview)
+      .cancelInterview(props.id)
       .then(() => {
         transition(EMPTY);
       })
       .catch((error) => {
         transition(ERROR_DELETE, true);
-        console.log("error:", error);
       });
   };
   // edit on SHOW
